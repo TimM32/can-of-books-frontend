@@ -1,10 +1,11 @@
 import React from 'react';
-import './App.css';
-import BestBooks from './Components/BestBooks/BestBooks.js';
+import BestBooks from '../BestBooks/BestBooks.js';
+
 class Main extends React.Component {
 
     render() {
-
+      
+        console.log('In the main');
         return (
             <>
             <BestBooks />
