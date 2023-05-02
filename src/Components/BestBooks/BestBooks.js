@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
-
+import { Container } from 'react-bootstrap';
+import bookImg from '../../book.PNG';
+import Image from 'react-bootstrap/Image';
 
 class BestBooks extends React.Component {
     constructor(props) {
@@ -33,38 +35,42 @@ class BestBooks extends React.Component {
 
     render() {
         console.log('AHHHHHH', this.state.books);
-        let allBookItems = this.state.books.map((book, index) => {
-            //    return console.log('YESSS' ,book.title);
-            return (
-                <Carousel.Item key={index}>
-                    <img alt="{book.title" />
-                    <Carousel.Caption>            
-                <h3>Title: {book.title}
-                    Description: {book.description}
-                    Status: {book.status}
-                </h3>
-                 </Carousel.Caption>
-                 </Carousel.Item>
-            );
-        });
 
-        // console.log('Yooooo' ,allBookItems);
+        //    return console.log('YESSS' ,book.title);
         return (
             <>
-                {
-                    this.state.books.length > 0 &&
+                <Container>
+                    {this.state.books.length ? (
 
-                    <Carousel>
-                        {allBookItems}
-                    </Carousel>
+                        <Carousel id="carousel">
+                            {this.state.books.map(book => (
+                                <Carousel.Item key={book._id} >
+                                    <Image
+                                        className="w-100"
+                                        id="carousel-image"
+                                        src={bookImg}
+                                        alt={book.name} />
+                                    <Carousel.Caption id="carouse-text-box">
+                                        <h2 className="carousel=text">{book.title}</h2>
+                                        <p className="carousel-text">{book.description}</p>
+                                        <p className="carousel-text">Status: {book.status}</p>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            ))}
 
-                }
+                        </Carousel>
+                        ) //: this.state.errorMessage.length ?
+                        // <ErrorAlert closeError={this.closeError} errorMessage={this.state.errorMessage} />
+                        : <h3 className="text-center" >Book Not Found</h3>
 
+                     }
+
+                </Container>
             </>
         )
     }
 
-}
+};
 
 
 export default BestBooks;
