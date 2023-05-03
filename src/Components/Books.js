@@ -26,10 +26,14 @@ class Book extends Books {
         return (
             <ListGroupItem>
                 {this.props.book.name}
-                {/* <Button variant="success" onClick={() =} */}
+                <Button variant="success" onClick={() => this.props.deleteBooks(this.props.book._id)}>Delete Book</Button>
             </ListGroupItem>
         )
     }
     
     
 }
+
+
+
+export default Books;
