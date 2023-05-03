@@ -10,6 +10,7 @@ class Books extends React.Component {
         <Book
         book={book}
         key={book._id}
+        deleteBooks={this.props.deleteBooks}
         />
         ));
         return (

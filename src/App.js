@@ -15,10 +15,10 @@ let SERVER = process.env.REACT_APP_SERVER;
 
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
-      books:[],
+    this.state = {
+      books: [],
     }
   }
 
@@ -28,7 +28,7 @@ class App extends React.Component {
       this.setState({
         books: results.data
       })
-      
+
     } catch (error) {
       console.log('Houston we have a problem', error.response.data)
     }
@@ -40,62 +40,64 @@ class App extends React.Component {
     let newBook = {
       title: event.target.title.value,
       description: event.target.description.value,
-      
+
     }
     console.log(newBook, 'New BBBB');
     this.postBook(newBook);
   }
 
 
-postBook = async (newBookobject) => {
-  try {
-    let url = `${SERVER}/books`;
-    let createBook = await axios.post(url, newBookobject);
-    console.log('We made it', createBook);
+  postBook = async (newBookobject) => {
+    try {
+      let url = `${SERVER}/books`;
+      let createBook = await axios.post(url, newBookobject);
+      console.log('We made it', createBook);
 
-    this.setState({
-      books:[...this.state.books, createBook.data],
-    });
-  } catch (error) {
-    console.log('we got problems', error.response.data);
+      this.setState({
+        books: [...this.state.books, createBook.data],
+      });
+    } catch (error) {
+      console.log('we got problems', error.response.data);
+    }
   }
-}
 
 
-deleteBooks = async (id) => {
-  try {
-    let url = `${SERVER}/books/${id}`;
-    await axios.delete(url);
-    let updateBooks = this.state.books.filter(book => book._id !== id);
-    this.setState({
-      books: updateBooks
-    })
-  } catch (error) {
-    console.log("we have more problems", error.response.data);
+  deleteBooks = async (id) => {
+    try {
+      let url = `${SERVER}/books/${id}`;
+      await axios.delete(url);
+      let updateBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updateBooks
+      })
+    } catch (error) {
+      console.log("we have more problems", error.response.data);
+    }
+  };
+
+
+  componentDidMount() {
+    this.getBooks();
   }
-};
 
+  render() {
 
-componentDidMount(){
-  this.getBooks();
-}
-
-render () {
-
-  return (
-    <>
-    <Header />
-    <Container>
-      <h1>Welcome Bookworms</h1>
-    </Container>
-    <main>
-      <CreateBook handleBookSubmit={this.handleBookSubmit} />
-      <Outlet />
-    </main>
-    
-    </>
-  );
-}
+    return (
+      <>
+        <Header />
+        <Container>
+          <h1>Welcome Bookworms</h1>
+        </Container>
+        <main>
+          {
+            <Books books={this.state.books} deleteBooks={this.deleteBooks}/>
+          }
+        </main>
+        <CreateBook handleBookSubmit={this.handleBookSubmit} />
+        <Outlet />
+      </>
+    );
+  }
 
 }
 
