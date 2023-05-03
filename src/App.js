@@ -2,8 +2,13 @@ import React from 'react';
 import './App.css';
 import Header from './Components/Header/Header.js';
 import Main from './Components/Main/Main.js';
-import Books from './Components/Books';
+import Books from './Components/Books.js';
 import axios from 'axios';
+import { Outlet } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import CreateBook from './Component/BestBooks/CreateBook.js';
+
+
 
 let SERVER = process.env.REACT_APP_SERVER;
 
@@ -84,21 +89,13 @@ render () {
       <h1>Welcome Bookworms</h1>
     </Container>
     <main>
-      
+      <CreateBook handleBookSubmit={this.handleBookSubmit} />
+      <Outlet />
     </main>
     
     </>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
 
 }
 
